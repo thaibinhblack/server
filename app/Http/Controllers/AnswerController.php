@@ -3,24 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\model\StoreModel;
-use App\model\CountryModel;
-class StoreController extends Controller
+use App\model\AnswerModel;
+class AnswerController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if($request->has('filter'))
-        {
-            $country = StoreModel::join('BOOKING_COUNTRY', 'BOOKING_STORE.UUID_COUNTRY', 'BOOKING_COUNTRY.UUID_COUNTRY')->where('BOOKING_COUNTRY.'.$request->get('filter'), $request->get('value'))->get();
-            return response()->json($country, 200);
-        }
-        $country = StoreModel::join('BOOKING_COUNTRY', 'BOOKING_STORE.UUID_COUNTRY', 'BOOKING_COUNTRY.UUID_COUNTRY')->get();
-        return response()->json($country, 200);
+        $answer = AnswerModel::orderBy('CREATED_AT','asc')->get();
+        return response()->json($answer, 200);
     }
 
     /**
@@ -41,8 +35,8 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        $store = StoreModel::create($request->all());
-        return response()->json($store, 200);
+        $answer = AnswerModel::create($request->all());
+        return response()->json($answer, 200);
     }
 
     /**
@@ -76,7 +70,7 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        //
     }
 
     /**

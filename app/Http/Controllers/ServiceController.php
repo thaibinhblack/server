@@ -11,7 +11,7 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $service = ServiceModel::all();
         return response()->json($service, 200);

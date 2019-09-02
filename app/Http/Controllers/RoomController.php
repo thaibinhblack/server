@@ -49,9 +49,15 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        //
+        if($request->has('store'))
+        {
+            $room = RoomModel::join('BOOKING_STORE','BOOKING_ROOM.UUID_STORE','BOOKING_STORE.UUID_STORE')->join('BOOKING_COUNTRY','BOOKING_STORE.UUID_COUNTRY','BOOKING_COUNTRY.UUID_COUNTRY')
+            ->join('BOOKING_PROVINCE','BOOKING_COUNTRY.UUID_PROVINCE','BOOKING_PROVINCE.UUID_PROVINCE')->where('UUID_ROOM',$id)->first();
+            return response()->json($room, 200);
+        }
+        
     }
 
     /**

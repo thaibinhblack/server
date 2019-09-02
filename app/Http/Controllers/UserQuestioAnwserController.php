@@ -3,24 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\model\StoreModel;
-use App\model\CountryModel;
-class StoreController extends Controller
+use App\model\UserQuestionAnwser;
+class UserQuestioAnwserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if($request->has('filter'))
-        {
-            $country = StoreModel::join('BOOKING_COUNTRY', 'BOOKING_STORE.UUID_COUNTRY', 'BOOKING_COUNTRY.UUID_COUNTRY')->where('BOOKING_COUNTRY.'.$request->get('filter'), $request->get('value'))->get();
-            return response()->json($country, 200);
-        }
-        $country = StoreModel::join('BOOKING_COUNTRY', 'BOOKING_STORE.UUID_COUNTRY', 'BOOKING_COUNTRY.UUID_COUNTRY')->get();
-        return response()->json($country, 200);
+       
     }
 
     /**
@@ -41,8 +34,13 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        $store = StoreModel::create($request->all());
-        return response()->json($store, 200);
+        foreach ($request->get('UUID_ANWSER') as $question) {
+            UserQuestionAnwser::create([
+                'UUID_BOOKING' => $request->get('UUID_BOOKING'),
+                'UUID_ANWSER' => $question
+            ]);
+        }
+        return response()->json($request->all(), 200);
     }
 
     /**
@@ -53,7 +51,10 @@ class StoreController extends Controller
      */
     public function show($id)
     {
-        //
+        $result = UserQuestionAnwser::join('BOOKING_ANSWER','BOOKING_USER_QUESTION_ANWSER.UUID_ANWSER', 'BOOKING_ANSWER.UUID_ANWSER')
+        ->join('BOOKING_QUESTION', 'BOOKING_ANSWER.UUID_QUESTION','BOOKING_QUESTION.UUID_QUESTION')
+        ->where('UUID_BOOKING',$id)->get();
+        return response()->json($result, 200);
     }
 
     /**
@@ -76,7 +77,7 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        //
     }
 
     /**

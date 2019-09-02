@@ -3,24 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\model\StoreModel;
-use App\model\CountryModel;
-class StoreController extends Controller
+use App\model\DetailServiceModel;
+class DetailServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if($request->has('filter'))
-        {
-            $country = StoreModel::join('BOOKING_COUNTRY', 'BOOKING_STORE.UUID_COUNTRY', 'BOOKING_COUNTRY.UUID_COUNTRY')->where('BOOKING_COUNTRY.'.$request->get('filter'), $request->get('value'))->get();
-            return response()->json($country, 200);
-        }
-        $country = StoreModel::join('BOOKING_COUNTRY', 'BOOKING_STORE.UUID_COUNTRY', 'BOOKING_COUNTRY.UUID_COUNTRY')->get();
-        return response()->json($country, 200);
+        //
     }
 
     /**
@@ -41,8 +34,13 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        $store = StoreModel::create($request->all());
-        return response()->json($store, 200);
+        foreach ($request->get('service') as $service) {
+            $detail = DetailServiceModel::create([
+                'UUID_BOOKING' => $request->get('UUID_BOOKING'),
+                'UUID_SERVICE' => $service
+            ]);
+        }
+       return response()->json($detail, 200);
     }
 
     /**
@@ -53,7 +51,9 @@ class StoreController extends Controller
      */
     public function show($id)
     {
-        //
+        $service = DetailServiceModel::join('BOOKING_SERVICE','BOOKING_DETAIL_SERVICE.UUID_SERVICE','BOOKING_SERVICE.UUID_SERVICE')
+        ->where('UUID_BOOKING',$id)->get();
+        return response()->json($service, 200);
     }
 
     /**
@@ -76,7 +76,7 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        //
     }
 
     /**
@@ -87,6 +87,7 @@ class StoreController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = DetailServiceModel::where('UUID_BOOKING',$id)->delete();
+        return response()->json($delete, 200);
     }
 }

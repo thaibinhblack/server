@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\model\StoreModel;
-use App\model\CountryModel;
-class StoreController extends Controller
+use Nexmo;
+class SendSMSController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,14 +12,13 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        if($request->has('filter'))
-        {
-            $country = StoreModel::join('BOOKING_COUNTRY', 'BOOKING_STORE.UUID_COUNTRY', 'BOOKING_COUNTRY.UUID_COUNTRY')->where('BOOKING_COUNTRY.'.$request->get('filter'), $request->get('value'))->get();
-            return response()->json($country, 200);
-        }
-        $country = StoreModel::join('BOOKING_COUNTRY', 'BOOKING_STORE.UUID_COUNTRY', 'BOOKING_COUNTRY.UUID_COUNTRY')->get();
-        return response()->json($country, 200);
+    {  $nexmo = app('Nexmo\Client');
+        $nexmo->message()->send([
+            'to'   => '84582660723',
+            'from' => '16105552344',
+            'text' => 'CAM ON QUY KHACH!'
+        ]);
+        return response()->json($nexmo, 200);
     }
 
     /**
@@ -41,8 +39,11 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        $store = StoreModel::create($request->all());
-        return response()->json($store, 200);
+        Nexmo::message()->send([
+            'to'   => '84'.$request->get('phone').' ',
+            'from' => '16105552344',
+            'text' => $request->get('message')
+        ]);
     }
 
     /**
@@ -76,7 +77,7 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        //
     }
 
     /**

@@ -162,7 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
-
+        Nexmo\Laravel\NexmoServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -226,6 +226,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Nexmo' => Nexmo\Laravel\Facade\Nexmo::class,
 
     ],
 
