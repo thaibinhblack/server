@@ -17,7 +17,9 @@ class BookingController extends Controller
     {
         if($request->has('phone'))
         {
-            $booking = BookingModel::where('PHONE_BOOKING',$request->get('phone'))->where('CHECK_BOOKING',0)->orderBy('CREATED_AT','asc')->first();
+            $booking = BookingModel::where([
+                ['PHONE_BOOKING',$request->get('phone')],
+                ['CHECK_BOOKING',0]])->first();
             if($booking)
             {
                 return response()->json(false, 200);
@@ -75,6 +77,8 @@ class BookingController extends Controller
             $booking = BookingModel::create([
                 'UUID_BOOKING' => $request->get('UUID_BOOKING'),
                 'PHONE_BOOKING' => $request->get('PHONE_BOOKING'),
+                'NAME_BOOKING' => $request->get('NAME_BOOKING'),
+                'EMAIL_BOOKING' => $request->get('EMAIL_BOOKING'),
                 'ACTION_BOOKING' => $request->get('ACTION_BOOKING')
             ]);
             return response()->json($booking, 200);
@@ -172,22 +176,25 @@ class BookingController extends Controller
                     'CHECK_BOOKING' => 1,
                     'NOTE_BOOKING' => 'khách hàng tự đã hủy đặt lịch!'
                 ]);
+                return response()->json($booking, 200);
             }
             else if($request->get('type') == 'question')
             {
                 $booking = BookingModel::where('UUID_BOOKING',$id)->update([
                     'NOTE_BOOKING' => 'Khách hàng đã trả lời phiếu khao sát!'
                 ]);
+                return response()->json($booking, 200);
             }
             else {
                 $booking = BookingModel::where('UUID_BOOKING',$id)->update([
                     'CHECK_BOOKING' => 1,
                     'NOTE_BOOKING' => 'khách hàng tự đã đặt lịch lại!'
                 ]);
+                return response()->json($booking, 200);
             } 
         }
-       
-        
+        $booking = BookingModel::where('UUID_BOOKING',$id)->update($request->all());
+        return response()->json($booking, 200);
         
     }
 

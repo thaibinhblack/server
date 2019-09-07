@@ -15,7 +15,7 @@ class RoomController extends Controller
     {
         if($request->has('type') && $request->has('value'))
         {
-            $room = RoomModel::where($request->get('type'), $request->get('value'))->get();
+            $room = RoomModel::where($request->get('type'), $request->get('value'))->orderBy('CREATED_AT','asc')->get();
             return response()->json($room, 200);
         }
         
@@ -80,7 +80,7 @@ class RoomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        RoomModel::where('UUID_ROOM',$id)->update($request->all());
     }
 
     /**

@@ -28,11 +28,14 @@ Route::group(['prefix' => '/v1'], function () {
     Route::put('/country/{id}', 'CountryController@update')->middleware('cors');
     //store
     Route::get('/store','StoreController@index')->middleware('cors');
+    Route::get('/store/{id}','StoreController@show')->middleware('cors');
     Route::post('/store','StoreController@store')->middleware('cors');
+    Route::put('/store/{id}','StoreController@update')->middleware('cors');
     //room
     Route::get('/room','RoomController@index')->middleware('cors');
     Route::get('/room/{id}','RoomController@show')->middleware('cors');
     Route::post("/room",'RoomController@store')->middleware('cors');
+    Route::put("/room",'RoomController@update')->middleware('cors');
     //service 
     Route::get('/service','ServiceController@index')->middleware('cors');
     Route::post('/service', 'ServiceController@store')->middleware('cors');
@@ -48,7 +51,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::delete('/detail-service/{id}','DetailServiceController@destroy')->middleware('cors');
     //SMS
     Route::get('/sms','SendSMSController@index')->middleware('cors');
-    Route::post('/sms','SendSMSController@post')->middleware('cors');
+    Route::post('/sms','SendSMSController@store')->middleware('cors');
     //question
     Route::get('/question','QuestionController@index')->middleware('cors');
     Route::post('/question','QuestionController@store')->middleware('cors');
@@ -65,4 +68,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::get('/user/{id}','UserController@show')->middleware('cors');
     Route::put('/user/{id}','UserController@update')->middleware('cors');
     Route::post('/user','UserController@store')->middleware('cors');
+    //stylist
+    Route::get('/stylist','StylistController@show')->middleware('cors');
+    Route::post('/stylist','StylistController@store')->middleware('cors');
 });

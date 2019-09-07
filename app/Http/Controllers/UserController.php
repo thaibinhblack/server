@@ -147,4 +147,16 @@ class UserController extends Controller
     {
         //
     }
+    public function login(Request $request)
+    {
+        $user = UserModel::where('USERNAME',$request->get("USERNAME"))->first();
+        if(Hash::check($request->get("PASSWORD"), $user["PASSWORD"]))
+        {
+            return response()->json($data, 200, $headers);
+        }
+        else {
+            # code...
+        }
+    }
+
 }

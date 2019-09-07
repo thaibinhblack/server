@@ -14,7 +14,7 @@ class SendSMSController extends Controller
     public function index(Request $request)
     {  $nexmo = app('Nexmo\Client');
         $nexmo->message()->send([
-            'to'   => '84582660723',
+            'to'   => '84'.$request->get('phone'),
             'from' => '16105552344',
             'text' => 'CAM ON QUY KHACH!'
         ]);
@@ -39,11 +39,14 @@ class SendSMSController extends Controller
      */
     public function store(Request $request)
     {
-        Nexmo::message()->send([
-            'to'   => '84'.$request->get('phone').' ',
+        $nexmo = app('Nexmo\Client');
+        $nexmo->message()->send([
+            'to'   => '84'.$request->get('phone'),
             'from' => '16105552344',
             'text' => $request->get('message')
         ]);
+        return response()->json($nexmo, 200);
+
     }
 
     /**

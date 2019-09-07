@@ -53,7 +53,8 @@ class StoreController extends Controller
      */
     public function show($id)
     {
-        //
+        $store = StoreModel::join("BOOKING_COUNTRY","BOOKING_STORE.UUID_COUNTRY","BOOKING_COUNTRY.UUID_COUNTRY")->where("UUID_STORE",$id)->first();
+        return response()->json($store, 200);
     }
 
     /**
@@ -76,6 +77,21 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if($request->has('update'))
+        {
+            StoreModel::where('UUID_STORE',$id)->update([
+                $request->get('update') => $request->get('value')
+            ]);
+        }
+        else {
+            StoreModel::where('UUID_STORE',$id)->update([
+                'NAME_STORE' => $request->get("NAME_STORE"),
+                'ADDRESS_STORE' => $request->get("ADDRESS_STORE"),
+                'PHONE_STORE' => $request->get("PHONE_STORE"),
+                'UUID_COUNTRY'=> $request->get("UUID_COUNTRY")
+            ]);
+            return response()->json($request->all(), 200);
+        }
         
     }
 
