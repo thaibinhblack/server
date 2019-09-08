@@ -53,7 +53,7 @@ class StoreController extends Controller
      */
     public function show($id)
     {
-        $store = StoreModel::join("booking_country","booking_store.UUID_COUNTRY","booking_country.UUID_COUNTRY")->where("UUID_STORE",$id)->first();
+        $store = StoreModel::join("BOOKING_COUNTRY","BOOKING_STORE.UUID_COUNTRY","BOOKING_COUNTRY.UUID_COUNTRY")->where("UUID_STORE",$id)->first();
         return response()->json($store, 200);
     }
 

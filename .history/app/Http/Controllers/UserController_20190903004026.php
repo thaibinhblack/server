@@ -43,7 +43,7 @@ class UserController extends Controller
         {
             if($request->get("code") == '29091996')
             {
-                $users = UserModel::join('booking_rule','booking_user.UUID_RULE','booking_rule.UUID_RULE')->select('BOOKING_USER.*','BOOKING_RULE.NAME_RULE')->orderBy('CREATED_AT','DESC')->get();
+                $users = UserModel::join('BOOKING_RULE','BOOKING_USER.UUID_RULE','BOOKING_RULE.UUID_RULE')->select('BOOKING_USER.*','BOOKING_RULE.NAME_RULE')->orderBy('CREATED_AT','DESC')->get();
                 return response()->json($users, 200);
             }
         }

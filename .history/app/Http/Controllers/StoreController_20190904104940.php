@@ -16,10 +16,10 @@ class StoreController extends Controller
     {
         if($request->has('filter'))
         {
-            $country = StoreModel::join('booking_country', 'booking_store.UUID_COUNTRY', 'booking_country.UUID_COUNTRY')->where('booking_country.'.$request->get('filter'), $request->get('value'))->get();
+            $country = StoreModel::join('BOOKING_COUNTRY', 'BOOKING_STORE.UUID_COUNTRY', 'BOOKING_COUNTRY.UUID_COUNTRY')->where('BOOKING_COUNTRY.'.$request->get('filter'), $request->get('value'))->get();
             return response()->json($country, 200);
         }
-        $country = StoreModel::join('booking_country', 'booking_store.UUID_COUNTRY', 'booking_country.UUID_COUNTRY')->get();
+        $country = StoreModel::join('BOOKING_COUNTRY', 'BOOKING_STORE.UUID_COUNTRY', 'BOOKING_COUNTRY.UUID_COUNTRY')->get();
         return response()->json($country, 200);
     }
 
@@ -53,7 +53,7 @@ class StoreController extends Controller
      */
     public function show($id)
     {
-        $store = StoreModel::join("booking_country","booking_store.UUID_COUNTRY","booking_country.UUID_COUNTRY")->where("UUID_STORE",$id)->first();
+        $store = StoreModel::join("BOOKING_COUNTRY","BOOKING_STORE.UUID_COUNTRY","BOOKING_COUNTRY.UUID_COUNTRY")->where("UUID_STORE",$id)->first();
         return response()->json($store, 200);
     }
 

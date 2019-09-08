@@ -51,7 +51,7 @@ class DetailServiceController extends Controller
      */
     public function show($id)
     {
-        $service = DetailServiceModel::join('booking_service','booking_detail_service.UUID_SERVICE','booking_service.UUID_SERVICE')
+        $service = DetailServiceModel::join('BOOKING_SERVICE','BOOKING_DETAIL_SERVICE.UUID_SERVICE','BOOKING_SERVICE.UUID_SERVICE')
         ->where('UUID_BOOKING',$id)->get();
         return response()->json($service, 200);
     }

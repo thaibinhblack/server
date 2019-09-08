@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\model\DetailServiceModel;
-class DetailServiceController extends Controller
+use App\model\UserQuestionAnwser;
+class UserQuestioAnwserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class DetailServiceController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**
@@ -34,13 +34,13 @@ class DetailServiceController extends Controller
      */
     public function store(Request $request)
     {
-        foreach ($request->get('service') as $service) {
-            $detail = DetailServiceModel::create([
+        foreach ($request->get('UUID_ANWSER') as $question) {
+            UserQuestionAnwser::create([
                 'UUID_BOOKING' => $request->get('UUID_BOOKING'),
-                'UUID_SERVICE' => $service
+                'UUID_ANWSER' => $question
             ]);
         }
-       return response()->json($detail, 200);
+        return response()->json($request->all(), 200);
     }
 
     /**
@@ -51,9 +51,10 @@ class DetailServiceController extends Controller
      */
     public function show($id)
     {
-        $service = DetailServiceModel::join('booking_service','booking_detail_service.UUID_SERVICE','booking_service.UUID_SERVICE')
+        $result = UserQuestionAnwser::join('BOOKING_ANSWER','BOOKING_USER_QUESTION_ANWSER.UUID_ANWSER', 'BOOKING_ANSWER.UUID_ANWSER')
+        ->join('BOOKING_QUESTION', 'BOOKING_ANSWER.UUID_QUESTION','BOOKING_QUESTION.UUID_QUESTION')
         ->where('UUID_BOOKING',$id)->get();
-        return response()->json($service, 200);
+        return response()->json($result, 200);
     }
 
     /**
@@ -87,7 +88,6 @@ class DetailServiceController extends Controller
      */
     public function destroy($id)
     {
-        $delete = DetailServiceModel::where('UUID_BOOKING',$id)->delete();
-        return response()->json($delete, 200);
+        //
     }
 }

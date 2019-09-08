@@ -159,7 +159,7 @@ class BookingController extends Controller
             $booking = BookingModel::where('UUID_BOOKING',$id)->update([
                 'NOTIFY_TOKEN' => $request->get('token')
             ]);
-            return response()->json('success', 200);
+            return response()->json($booking, 200);
         }
         else if($request->has('check_booking'))
         {

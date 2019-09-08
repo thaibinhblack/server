@@ -43,7 +43,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::get('/booking','BookingController@index')->middleware('cors');
     Route::get('/booking/{id}','BookingController@show')->middleware('cors');
     Route::post('/booking','BookingController@store')->middleware('cors');
-    Route::post('/booking/{id}/update','BookingController@update')->middleware('cors');
+    Route::put('/booking/{id}','BookingController@update')->middleware('cors');
     Route::delete('/booking/{id}','BookingController@destroy')->middleware('cors');
     //detail service booking
     Route::get('/detail-service/{id}','DetailServiceController@show')->middleware('cors');

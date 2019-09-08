@@ -3,17 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\model\DetailServiceModel;
-class DetailServiceController extends Controller
+use App\model\RoomModel;
+class RoomController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->has('type') && $request->has('value'))
+        {
+            $room = RoomModel::where($request->get('type'), $request->get('value'))->orderBy('CREATED_AT','asc')->get();
+            return response()->json($room, 200);
+        }
+        
     }
 
     /**
@@ -34,13 +39,8 @@ class DetailServiceController extends Controller
      */
     public function store(Request $request)
     {
-        foreach ($request->get('service') as $service) {
-            $detail = DetailServiceModel::create([
-                'UUID_BOOKING' => $request->get('UUID_BOOKING'),
-                'UUID_SERVICE' => $service
-            ]);
-        }
-       return response()->json($detail, 200);
+        $room = RoomModel::create($request->all());
+        return response()->json($room, 200);
     }
 
     /**
@@ -49,11 +49,15 @@ class DetailServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        $service = DetailServiceModel::join('booking_service','booking_detail_service.UUID_SERVICE','booking_service.UUID_SERVICE')
-        ->where('UUID_BOOKING',$id)->get();
-        return response()->json($service, 200);
+        if($request->has('store'))
+        {
+            $room = RoomModel::join('BOOKING_STORE','BOOKING_ROOM.UUID_STORE','BOOKING_STORE.UUID_STORE')->join('BOOKING_COUNTRY','BOOKING_STORE.UUID_COUNTRY','BOOKING_COUNTRY.UUID_COUNTRY')
+            ->join('BOOKING_PROVINCE','BOOKING_COUNTRY.UUID_PROVINCE','BOOKING_PROVINCE.UUID_PROVINCE')->where('UUID_ROOM',$id)->first();
+            return response()->json($room, 200);
+        }
+        
     }
 
     /**
@@ -76,7 +80,7 @@ class DetailServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        RoomModel::where('UUID_ROOM',$id)->update($request->all());
     }
 
     /**
@@ -87,7 +91,6 @@ class DetailServiceController extends Controller
      */
     public function destroy($id)
     {
-        $delete = DetailServiceModel::where('UUID_BOOKING',$id)->delete();
-        return response()->json($delete, 200);
+        //
     }
 }
