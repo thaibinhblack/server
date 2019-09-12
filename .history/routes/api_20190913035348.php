@@ -75,6 +75,6 @@ Route::group(['middleware' => ['api', 'cors'],
         Route::post('/stylist/{id}/update','StylistController@update');
         //email
         Route::post('/email','SendMailController@store');
-        //provice
+    //provice
    
 });
