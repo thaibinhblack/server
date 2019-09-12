@@ -1,0 +1,20 @@
+<?php
+
+namespace App\model;
+
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+use Illuminate\Database\Eloquent\Model;
+
+class UserModel extends Authenticatable
+{
+    use HasApiTokens, Notifiable;
+    protected $table = "booking_user";
+    protected $fillable = ["UUID_USER" , "UUID_RULE", "UUID_COUNTRY", "USERNAME", "EMAIL", "PHONE", "GENDER", "BIRTH_DAY", "AVATAR",'PASSWORD',  "USER_TOKEN", "NOTIFY_TOKEN"];
+    
+    protected $hidden = [
+        'PASSWORD',  "USER_TOKEN", "NOTIFY_TOKEN"
+    ];
+}
