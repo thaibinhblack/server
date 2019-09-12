@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 // });
 //province
 Route::group(['middleware' => 'cors',
-            'prefix' => '/v1',], function () {
+            'prefix' => 'v1',], function () {
   
         Route::get('/province','ProvinceController@index');
         Route::post('/province', 'ProvinceController@store');
