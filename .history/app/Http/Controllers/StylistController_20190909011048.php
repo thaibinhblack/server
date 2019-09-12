@@ -76,14 +76,13 @@ class StylistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
         if($request->has('URL_STYLIST'))
         {
             $file = $request->file('URL_STYLIST');
             $name = $file->getClientOriginalName();
             $file->move(public_path().'/upload/stylists/', $file->getClientOriginalName());
             $path = 'upload/stylists/'.$name;
-            
+            $data = $request->all();
             $data["URL_STYLIST"] = $path;
         }
         

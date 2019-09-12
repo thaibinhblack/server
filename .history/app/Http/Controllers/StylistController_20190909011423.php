@@ -77,6 +77,8 @@ class StylistController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        $stylist = StylistModel::where('UUID_STYLIST',$id)->first();
+        $stylist->NAME_STYLIST = $data["NAME_STYLIST"]
         if($request->has('URL_STYLIST'))
         {
             $file = $request->file('URL_STYLIST');
@@ -85,9 +87,10 @@ class StylistController extends Controller
             $path = 'upload/stylists/'.$name;
             
             $data["URL_STYLIST"] = $path;
+            $stylist->URL_STYLIST = $path;
         }
         
-        $stylist = StylistModel::where('UUID_STYLIST',$id)->update($data);
+        $stylist->save()
         return response()->json($stylist, 200);
     }
 

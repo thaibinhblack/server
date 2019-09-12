@@ -72,7 +72,8 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-
+        if($request->get('type'))
+        {
             $booking = BookingModel::create([
                 'UUID_BOOKING' => $request->get('UUID_BOOKING'),
                 'PHONE_BOOKING' => $request->get('PHONE_BOOKING'),
@@ -81,6 +82,7 @@ class BookingController extends Controller
                 'ACTION_BOOKING' => $request->get('ACTION_BOOKING')
             ]);
             return response()->json($booking, 200);
+        }
     }
 
     /**

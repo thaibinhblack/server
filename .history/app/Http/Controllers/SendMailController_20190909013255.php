@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\model\StylistModel;
-class StylistController extends Controller
+
+class SendMailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +13,7 @@ class StylistController extends Controller
      */
     public function index()
     {
-        $stylist = StylistModel::all();
-        return response()->json($stylist, 200);
+        //
     }
 
     /**
@@ -35,14 +34,7 @@ class StylistController extends Controller
      */
     public function store(Request $request)
     {
-        $file = $request->file('URL_STYLIST');
-        $name = $file->getClientOriginalName();
-        $file->move(public_path().'/upload/stylists/', $file->getClientOriginalName());
-        $path = 'upload/stylists/'.$name;
-        $data = $request->all();
-        $data["URL_STYLIST"] = $path;
-        $stylist = StylistModel::create($data);
-        return response()->json($stylist, 200);
+        //
     }
 
     /**
@@ -76,19 +68,7 @@ class StylistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-        if($request->has('URL_STYLIST'))
-        {
-            $file = $request->file('URL_STYLIST');
-            $name = $file->getClientOriginalName();
-            $file->move(public_path().'/upload/stylists/', $file->getClientOriginalName());
-            $path = 'upload/stylists/'.$name;
-            
-            $data["URL_STYLIST"] = $path;
-        }
-        
-        $stylist = StylistModel::where('UUID_STYLIST',$id)->update($data);
-        return response()->json($stylist, 200);
+        //
     }
 
     /**

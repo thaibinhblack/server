@@ -72,6 +72,4 @@ Route::group(['prefix' => '/v1'], function () {
     Route::get('/stylist','StylistController@index')->middleware('cors');
     Route::post('/stylist','StylistController@store')->middleware('cors');
     Route::post('/stylist/{id}/update','StylistController@update')->middleware('cors');
-    //email
-    Route::post('/email','SendMailController@store')->middleware('cors');
 });
