@@ -94,7 +94,7 @@ class BookingController extends Controller
         // $booking->ACTION_BOOKING =  $request->get("ACTION_BOOKING");
         // $booking->NOTE_BOOKING =  $request->get("NOTE_BOOKING");
         // $booking->save();
-        return response()->json($request->all(), 200);
+        return response()->json($booking, 200);
     }
 
     /**
