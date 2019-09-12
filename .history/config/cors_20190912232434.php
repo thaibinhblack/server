@@ -13,8 +13,8 @@ return [
     */
    
     'supportsCredentials' => false,
-    'allowedOrigins' => ['localhost,127.0.0.1,booking.duyanhplus.com'],
-    'allowedOriginsPatterns' => ['*'],
+    'allowedOrigins' => ['*'],
+    'allowedOriginsPatterns' => [],
     'allowedHeaders' => ['X-Requested-With, Content-Type, X-Token-Auth, Authorization'],
     'allowedMethods' => ['GET, POST, PUT, DELETE, OPTIONS'],
     'exposedHeaders' => ['*'],

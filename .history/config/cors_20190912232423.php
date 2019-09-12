@@ -13,9 +13,9 @@ return [
     */
    
     'supportsCredentials' => false,
-    'allowedOrigins' => ['localhost,127.0.0.1,booking.duyanhplus.com'],
-    'allowedOriginsPatterns' => ['*'],
-    'allowedHeaders' => ['X-Requested-With, Content-Type, X-Token-Auth, Authorization'],
+    'allowedOrigins' => ['*'],
+    'allowedOriginsPatterns' => [],
+    'allowedHeaders' => ['*'],
     'allowedMethods' => ['GET, POST, PUT, DELETE, OPTIONS'],
     'exposedHeaders' => ['*'],
     'maxAge' => 0,
