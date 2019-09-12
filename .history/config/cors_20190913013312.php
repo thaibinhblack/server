@@ -13,7 +13,7 @@ return [
     */
    
     'supportsCredentials' => false,
-    'allowedOrigins' => ['localhost:8080, 127.0.0.1, booking.duyanhplus.com, 144.202.107.99, http://localhost:8080'],
+    'allowedOrigins' => ['localhost:8080, 127.0.0.1, booking.duyanhplus.com, 144.202.107.99, http://localhost:8080],
     'allowedOriginsPatterns' => [],
     'allowedHeaders' => ['X-Requested-With, Content-Type, X-Token-Auth, Authorization'],
     'allowedMethods' => ['GET, POST, PUT, DELETE, OPTIONS'],
