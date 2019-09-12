@@ -3,13 +3,14 @@
 return [
 
     /*
-     * A cors profile determines which origins, methods, headers are allowed for
-     * a given requests. The `DefaultProfile` reads its configuration from this
-     * config file.
-     *
-     * You can easily create your own cors profile.
-     * More info: https://github.com/spatie/laravel-cors/#creating-your-own-cors-profile
-     */
+    |--------------------------------------------------------------------------
+    | Laravel CORS
+    |--------------------------------------------------------------------------
+    |
+    | allowedOrigins, allowedHeaders and allowedMethods can be set to array('*')
+    | to accept any value.
+    |
+    */
     'cors_profile' => Spatie\Cors\CorsProfile\DefaultProfile::class,
 
     /*
@@ -58,4 +59,5 @@ return [
          */
         'max_age' => 60 * 60 * 24,
     ],
+
 ];

@@ -14,13 +14,11 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: *');
 header('Access-Control-Allow-Headers: *');
 $app->configure('cors');
-
 $app->middleware([
     Spatie\Cors\Cors::class,
 ]);
 
 $app->register(Spatie\Cors\CorsServiceProvider::class);
-
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
