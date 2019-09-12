@@ -88,13 +88,20 @@ class BookingController extends Controller
     }
     public function store(Request $request)
     {
-        $booking = new BookingModel();
-        $booking->UUID_BOOKING =  $request->get("UUID_BOOKING");
-        $booking->PHONE_BOOKING =  $request->get("PHONE_BOOKING");
-        $booking->UUID_BOOKING =  $request->get("UUID_BOOKING");
-        $booking->ACTION_BOOKING =  $request->get("ACTION_BOOKING");
-        $booking->NOTE_BOOKING =  $request->get("NOTE_BOOKING");
-        $booking->save();
+
+        $booking = BookingModel::create([
+            "UUID_BOOKING" => $request->get("UUID_BOOKING"),
+            "PHONE_BOOKING" =>  $request->get("PHONE_BOOKING"),
+            "ACTION_BOOKING" =>  $request->get("ACTION_BOOKING"),
+            "NOTE_BOOKING"  =>  $request->get("NOTE_BOOKING")
+        ]);
+        if($booking)
+        {
+            return response()->json($booking, 200);
+        }
+        else {
+            return response()->json('error', 401);
+        }
     }
 
     /**
