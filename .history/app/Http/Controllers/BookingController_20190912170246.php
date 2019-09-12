@@ -79,9 +79,8 @@ class BookingController extends Controller
                 return resp1onse()->json($booking, 200);
             }
             else {
-                return response()->json('error', 401);
-            }
-        }
+                return response()->json('error', 401, $headers);
+    }
 
     /**
      * Display the specified resource.

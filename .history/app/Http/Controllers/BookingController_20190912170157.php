@@ -74,14 +74,8 @@ class BookingController extends Controller
     {
 
             $booking = BookingModel::create($request->all());
-            if($booking)
-            {
-                return resp1onse()->json($booking, 200);
-            }
-            else {
-                return response()->json('error', 401);
-            }
-        }
+            return response()->json($booking, 200);
+    }
 
     /**
      * Display the specified resource.
